@@ -91,12 +91,11 @@ class User {
    * */
 
   static async getAll() {
+    /** Fixed Bug #3 */
     const result = await db.query(
       `SELECT username,
                 first_name,
-                last_name,
-                email,
-                phone
+                last_name
             FROM users 
             ORDER BY username`
     );

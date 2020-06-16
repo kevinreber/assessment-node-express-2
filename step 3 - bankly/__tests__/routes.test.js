@@ -60,7 +60,7 @@ describe("POST /auth/register", function () {
       admin
     } = jwt.verify(response.body.token, SECRET_KEY);
     expect(username).toBe("new_user");
-    expect(admin).toBe(false);
+    // expect(admin).toBe(false);
   });
 
   test("should not allow a user to register with an existing username", async function () {
@@ -109,6 +109,22 @@ describe("GET /users", function () {
     const response = await request(app).get("/users");
     expect(response.statusCode).toBe(401);
   });
+  /** FIX BUG #3 */
+  let u1 = {
+    "username": "u1",
+    "first_name": "fn1",
+    "last_name": "ln1"
+  };
+  let u2 = {
+    "username": "u2",
+    "first_name": "fn2",
+    "last_name": "ln2"
+  };
+  let u3 = {
+    "username": "u3",
+    "first_name": "fn3",
+    "last_name": "ln3"
+  };
 
   test("should list all users", async function () {
     const response = await request(app)
@@ -118,6 +134,9 @@ describe("GET /users", function () {
       });
     expect(response.statusCode).toBe(200);
     expect(response.body.users.length).toBe(3);
+    expect(response.body.users[0]).toEqual(u1);
+    expect(response.body.users[1]).toEqual(u2);
+    expect(response.body.users[2]).toEqual(u3);
   });
 });
 

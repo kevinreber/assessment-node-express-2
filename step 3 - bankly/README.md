@@ -2,6 +2,8 @@
    
 - BUG #2: Added await to 'let user = User.authenticate(username, password)' =>  'let user = await User.authenticate(username, password)'
 
+- BUG #3: User.getAll() should only return '{username, first_name, last_name}'
+
 test1
 {
   "_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3QxIiwiYWRtaW4iOmZhbHNlLCJpYXQiOjE1OTIzMjIzNjR9.PwHpd4GNBH3wS9QgZJGlbnLOOXG92eutxlJTEx8xw6c"

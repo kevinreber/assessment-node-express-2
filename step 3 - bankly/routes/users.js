@@ -21,6 +21,7 @@ const {
 
 router.get('/', authUser, requireLogin, async function (req, res, next) {
   try {
+    /** Fixed Bug #3 */
     let users = await User.getAll();
     return res.json({
       users
