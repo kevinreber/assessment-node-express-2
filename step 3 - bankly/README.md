@@ -1,5 +1,6 @@
 - BUG #1: '/auth/register' and 'User.register()' was not storing 'admin' value
-
+   
+- BUG #2: Added await to 'let user = User.authenticate(username, password)' =>  'let user = await User.authenticate(username, password)'
 
 test1
 {
