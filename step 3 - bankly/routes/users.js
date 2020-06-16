@@ -4,7 +4,11 @@ const User = require('../models/user');
 const express = require('express');
 const router = new express.Router();
 const ExpressError = require('../helpers/expressError');
-const { authUser, requireLogin, requireAdmin } = require('../middleware/auth');
+const {
+  authUser,
+  requireLogin,
+  requireAdmin
+} = require('../middleware/auth');
 
 /** GET /
  *
@@ -15,10 +19,12 @@ const { authUser, requireLogin, requireAdmin } = require('../middleware/auth');
  *
  */
 
-router.get('/', authUser, requireLogin, async function(req, res, next) {
+router.get('/', authUser, requireLogin, async function (req, res, next) {
   try {
     let users = await User.getAll();
-    return res.json({ users });
+    return res.json({
+      users
+    });
   } catch (err) {
     return next(err);
   }
@@ -35,14 +41,16 @@ router.get('/', authUser, requireLogin, async function(req, res, next) {
  *
  */
 
-router.get('/:username', authUser, requireLogin, async function(
+router.get('/:username', authUser, requireLogin, async function (
   req,
   res,
   next
 ) {
   try {
     let user = await User.get(req.params.username);
-    return res.json({ user });
+    return res.json({
+      user
+    });
   } catch (err) {
     return next(err);
   }
@@ -63,7 +71,7 @@ router.get('/:username', authUser, requireLogin, async function(
  *
  */
 
-router.patch('/:username', authUser, requireLogin, requireAdmin, async function(
+router.patch('/:username', authUser, requireLogin, requireAdmin, async function (
   req,
   res,
   next
@@ -74,11 +82,15 @@ router.patch('/:username', authUser, requireLogin, requireAdmin, async function(
     }
 
     // get fields to change; remove token so we don't try to change it
-    let fields = { ...req.body };
+    let fields = {
+      ...req.body
+    };
     delete fields._token;
 
     let user = await User.update(req.params.username, fields);
-    return res.json({ user });
+    return res.json({
+      user
+    });
   } catch (err) {
     return next(err);
   }
@@ -94,14 +106,16 @@ router.patch('/:username', authUser, requireLogin, requireAdmin, async function(
  * If user cannot be found, return a 404 err.
  */
 
-router.delete('/:username', authUser, requireAdmin, async function(
+router.delete('/:username', authUser, requireAdmin, async function (
   req,
   res,
   next
 ) {
   try {
     User.delete(req.params.username);
-    return res.json({ message: 'deleted' });
+    return res.json({
+      message: 'deleted'
+    });
   } catch (err) {
     return next(err);
   }
