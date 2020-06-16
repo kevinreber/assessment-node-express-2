@@ -4,6 +4,8 @@
 
 - BUG #3: User.getAll() should only return '{username, first_name, last_name}'
 
+- BUG #4: Added await to 'users/delete' route
+
 test1
 {
   "_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3QxIiwiYWRtaW4iOmZhbHNlLCJpYXQiOjE1OTIzMjIzNjR9.PwHpd4GNBH3wS9QgZJGlbnLOOXG92eutxlJTEx8xw6c"
