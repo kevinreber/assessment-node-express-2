@@ -60,7 +60,7 @@ describe("POST /auth/register", function () {
       admin
     } = jwt.verify(response.body.token, SECRET_KEY);
     expect(username).toBe("new_user");
-    // expect(admin).toBe(false);
+    expect(admin).toBe(false);
   });
 
   test("should not allow a user to register with an existing username", async function () {

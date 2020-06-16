@@ -17,7 +17,7 @@ class User {
     last_name,
     email,
     phone,
-    admin
+    admin = false
   }) {
     const duplicateCheck = await db.query(
       `SELECT username 
