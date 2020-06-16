@@ -2,13 +2,23 @@ const bcrypt = require('bcrypt');
 const db = require('../db');
 const ExpressError = require('../helpers/expressError');
 const sqlForPartialUpdate = require('../helpers/partialUpdate');
-const { BCRYPT_WORK_FACTOR } = require("../config");
+const {
+  BCRYPT_WORK_FACTOR
+} = require("../config");
 
 class User {
 
-/** Register user with data. Returns new user data. */
-
-  static async register({username, password, first_name, last_name, email, phone}) {
+  /** Register user with data. Returns new user data. */
+  /** Fixes Bug #1 */
+  static async register({
+    username,
+    password,
+    first_name,
+    last_name,
+    email,
+    phone,
+    admin
+  }) {
     const duplicateCheck = await db.query(
       `SELECT username 
         FROM users 
@@ -27,16 +37,17 @@ class User {
 
     const result = await db.query(
       `INSERT INTO users 
-          (username, password, first_name, last_name, email, phone) 
-        VALUES ($1, $2, $3, $4, $5, $6) 
-        RETURNING username, password, first_name, last_name, email, phone`,
+          (username, password, first_name, last_name, email, phone, admin) 
+        VALUES ($1, $2, $3, $4, $5, $6, $7) 
+        RETURNING username, password, first_name, last_name, email, phone, admin`,
       [
         username,
         hashedPassword,
         first_name,
         last_name,
         email,
-        phone
+        phone,
+        admin
       ]
     );
 
@@ -128,7 +139,10 @@ class User {
    **/
 
   static async update(username, data) {
-    let { query, values } = sqlForPartialUpdate(
+    let {
+      query,
+      values
+    } = sqlForPartialUpdate(
       'users',
       data,
       'username',
