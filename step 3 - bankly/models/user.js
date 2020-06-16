@@ -90,7 +90,7 @@ class User {
    *
    * */
 
-  static async getAll(username, password) {
+  static async getAll() {
     const result = await db.query(
       `SELECT username,
                 first_name,
