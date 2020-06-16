@@ -109,7 +109,7 @@ describe("GET /users", function () {
     const response = await request(app).get("/users");
     expect(response.statusCode).toBe(401);
   });
-  /** FIX BUG #3 */
+  /** TESTS BUG #3 */
   let u1 = {
     "username": "u1",
     "first_name": "fn1",
