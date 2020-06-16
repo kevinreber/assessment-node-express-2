@@ -1,7 +1,9 @@
 /** Middleware for handling req authorization for routes. */
 
 const jwt = require('jsonwebtoken');
-const { SECRET_KEY } = require('../config');
+const {
+  SECRET_KEY
+} = require('../config');
 
 /** Authorization Middleware: Requires user is logged in. */
 
@@ -10,7 +12,10 @@ function requireLogin(req, res, next) {
     if (req.curr_username) {
       return next();
     } else {
-      return next({ status: 401, message: 'Unauthorized' });
+      return next({
+        status: 401,
+        message: 'Unauthorized'
+      });
     }
   } catch (err) {
     return next(err);
@@ -24,7 +29,10 @@ function requireAdmin(req, res, next) {
     if (req.curr_admin) {
       return next();
     } else {
-      return next({ status: 401, message: 'Unauthorized' });
+      return next({
+        status: 401,
+        message: 'Unauthorized'
+      });
     }
   } catch (err) {
     return next(err);
@@ -46,7 +54,10 @@ function requireAdmin(req, res, next) {
 
 function authUser(req, res, next) {
   try {
-    const token = req.body._token || req.query._token;
+    /** BUG 1: changed initial 'req.body._token' and req.'query._token'
+     *  to 'req.body.token' and 'req.query.token'
+     */
+    const token = req.body.token || req.query.token;
     if (token) {
       let payload = jwt.decode(token);
       req.curr_username = payload.username;
